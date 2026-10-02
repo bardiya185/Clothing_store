@@ -46,6 +46,8 @@ const messages = {
       editProfile: "ویرایش اطلاعات",
       addresses: "آدرس‌های من",
       addAddress: "ثبت آدرس جدید",
+      editAddress: "ویرایش آدرس",
+      updateAddress: "ذخیره ویرایش",
       noAddresses: "هنوز آدرسی ثبت نکردی.",
       addressTitle: "عنوان آدرس",
       recipientName: "نام گیرنده",
@@ -245,6 +247,8 @@ const messages = {
       editProfile: "Edit profile",
       addresses: "My addresses",
       addAddress: "Add new address",
+      editAddress: "Edit address",
+      updateAddress: "Save changes",
       noAddresses: "You have no saved addresses yet.",
       addressTitle: "Address label",
       recipientName: "Recipient name",
@@ -277,7 +281,7 @@ const messages = {
       viewAll: "View all",
       add: "Add to bag",
       added: "Added to bag",
-      move_to_cart: "Go to bag",
+      move_to_cart: "Go to cart",
       details: "Product details",
       back: "Back to shop",
       checkout: "Continue to checkout",
@@ -448,6 +452,5 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
 export function useLocale() {
   const context = useContext(LocaleContext);
   if (!context) throw new Error("useLocale must be used inside LocaleProvider");
-  console.log();
   return context;
 }

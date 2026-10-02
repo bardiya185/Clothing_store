@@ -161,7 +161,7 @@ export default function CheckoutPage() {
   const { locale, t } = useLocale();
   const router = useRouter();
   const { items, clear, discount, isLoading } = useCart();
-  const { data: user, isLoading: userLoading } = useCurrentUser();
+  const { data: user, isLoading: userLoading, authReady } = useCurrentUser();
   const addresses = useAddresses(Boolean(user));
   const [addressId, setAddressId] = useState<number | null>(null);
   const [cardNumber, setCardNumber] = useState(initialCardNumber);
@@ -170,8 +170,8 @@ export default function CheckoutPage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (!userLoading && !user) router.replace("/login?next=/checkout");
-  }, [router, user, userLoading]);
+    if (authReady && !userLoading && !user) router.replace("/login?next=/checkout");
+  }, [authReady, router, user, userLoading]);
 
   const defaultAddress = addresses.data?.find((address) => address.is_default) ?? addresses.data?.[0];
   const selectedAddress = addresses.data?.find((address) => address.id === addressId) ?? defaultAddress;
@@ -232,7 +232,7 @@ export default function CheckoutPage() {
     );
   }
 
-  if (userLoading || addresses.isLoading) {
+  if (!authReady || userLoading || addresses.isLoading) {
     return <div className="flex min-h-[65vh] items-center justify-center"><Loader2 className="animate-spin text-accent" /></div>;
   }
 

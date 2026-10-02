@@ -132,7 +132,10 @@ class AuthService
         $user = $tokenModel->tokenable;
         $tokenModel->delete();
 
-        return $this->generateTokens($user);
+        return [
+            'user' => $user->fresh(),
+            'tokens' => $this->generateTokens($user),
+        ];
     }
 
     /**

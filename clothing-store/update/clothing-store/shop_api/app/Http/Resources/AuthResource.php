@@ -12,13 +12,18 @@ class AuthResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $payload = is_array($this->resource) ? $this->resource : [];
+        $tokens = is_array($payload['tokens'] ?? null) ? $payload['tokens'] : [];
+
         return [
-            'user' => new UserResource($this['user']), // 👈 استفاده از UserResource در دل این ریسورس
+            // The refresh endpoint may return tokens without a user payload.
+            // Keep the field nullable instead of triggering "Undefined array key user".
+            'user' => isset($payload['user']) ? new UserResource($payload['user']) : null,
             'tokens' => [
-                'access_token'  => $this['tokens']['access_token'],
-                'refresh_token' => $this['tokens']['refresh_token'],
-                'token_type'    => $this['tokens']['token_type'],
-                'expires_in'    => $this['tokens']['expires_in'], // ثانیه
+                'access_token'  => $tokens['access_token'] ?? null,
+                'refresh_token' => $tokens['refresh_token'] ?? null,
+                'token_type'    => $tokens['token_type'] ?? 'Bearer',
+                'expires_in'    => $tokens['expires_in'] ?? null,
             ],
         ];
     }

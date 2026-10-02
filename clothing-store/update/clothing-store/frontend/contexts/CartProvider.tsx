@@ -1,7 +1,6 @@
 "use client";
-/* eslint-disable react-hooks/set-state-in-effect */
 
-import { createContext, useCallback, useEffect, useMemo, useState } from "react";
+import { createContext, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 import type { Product } from "@/lib/product";
 import { getApiErrorMessage } from "@/lib/api-error";
@@ -58,6 +57,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [snapshot, setSnapshot] = useState<Awaited<ReturnType<typeof getCart>> | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const lastSyncKey = useRef<string | null>(null);
+  const inFlightSyncKey = useRef<string | null>(null);
 
   const refresh = useCallback(async () => {
     try {
@@ -75,11 +76,21 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, [locale]);
 
+  const cartSyncKey = `${user?.id ?? "guest"}:${locale}`;
+
   useEffect(() => {
+    if (lastSyncKey.current === cartSyncKey || inFlightSyncKey.current === cartSyncKey) {
+      return;
+    }
+
+    inFlightSyncKey.current = cartSyncKey;
     window.localStorage.removeItem("baran-cart");
     window.localStorage.removeItem("baran-discount");
-    void refresh();
-  }, [refresh, user?.id]);
+    void refresh().finally(() => {
+      inFlightSyncKey.current = null;
+      lastSyncKey.current = cartSyncKey;
+    });
+  }, [cartSyncKey, refresh]);
 
   const updateSnapshot = useCallback(async (
     action: () => Promise<Awaited<ReturnType<typeof getCart>>>,

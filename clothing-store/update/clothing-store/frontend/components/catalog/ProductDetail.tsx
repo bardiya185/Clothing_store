@@ -10,11 +10,10 @@ import {
   Minus,
   Plus,
   Send,
+  ShoppingBag,
   Star,
   ShieldCheck,
   Truck,
-  ChartBar,
-  ShoppingBag,
 } from "lucide-react";
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
@@ -49,7 +48,6 @@ function uniqueAttributeValues(variants: ProductVariant[], slug: string) {
 
 export default function ProductDetail({ slug }: { slug: string }) {
   const { locale, t } = useLocale();
-  
   const { addItem, items } = useCart();
   const [selectedVariantId, setSelectedVariantId] = useState<number | null>(
     null,
@@ -327,45 +325,51 @@ export default function ProductDetail({ slug }: { slug: string }) {
             )}
           </div>
 
-          <div className="flex  gap-3  flex-wrap sm:flex-row">
-           {isInCart ? 
-          <Link
-          href="/cart"
-          className="group transition-all  flex items-center justify-center gap-5 rounded-2xl bg-[#D2D2D285] p-4  hover:opacity-80 dark:bg-zinc-900"
-        >
-          <span className="hidden sm:block text-sm font-medium">
-            {t.actions.move_to_cart}
-          </span>
-          <ShoppingBag className="h-5 w-5 text-olive-900 dark:text-cyan-50" />
-        </Link>
-           : <div className="flex w-fit h-12 items-center self-center rounded-full border border-border">
-              <button
-                onClick={() => setQuantity((value) => Math.max(1, value - 1))}
-                className="p-3"
-                aria-label={locale === "fa" ? "کم کردن" : "Decrease"}
+          <div className="flex gap-3 flex-wrap sm:flex-row">
+            {isInCart ? (
+              <Link
+                href="/cart"
+                className="group flex items-center justify-center gap-5 rounded-2xl bg-[#D2D2D285] p-4 transition-all hover:opacity-80 dark:bg-zinc-900"
               >
-                <Minus size={16} />
-              </button>
-              <span className="w-8 text-center text-sm font-bold">
-                {quantity}
-              </span>
-              <button
-                onClick={() =>
-                  setQuantity((value) => Math.min(stock, value + 1))
-                }
-                className="p-3"
-                aria-label={locale === "fa" ? "زیاد کردن" : "Increase"}
-              >
-                <Plus size={16} />
-              </button>
-            </div>}
+                <span className="hidden text-sm font-medium sm:block">
+                  {t.actions.move_to_cart}
+                </span>
+                <ShoppingBag className="h-5 w-5 text-olive-900 dark:text-cyan-50" />
+              </Link>
+            ) : (
+              <div className="flex h-12 w-fit items-center self-center rounded-full border border-border">
+                <button
+                  onClick={() => setQuantity((value) => Math.max(1, value - 1))}
+                  className="p-3"
+                  aria-label={locale === "fa" ? "کم کردن" : "Decrease"}
+                >
+                  <Minus size={16} />
+                </button>
+                <span className="w-8 text-center text-sm font-bold">
+                  {quantity}
+                </span>
+                <button
+                  onClick={() =>
+                    setQuantity((value) => Math.min(stock, value + 1))
+                  }
+                  className="p-3"
+                  aria-label={locale === "fa" ? "زیاد کردن" : "Increase"}
+                >
+                  <Plus size={16} />
+                </button>
+              </div>
+            )}
             <button
               onClick={addToBag}
               disabled={stock < 1 || isInCart}
               className={`flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-bold transition disabled:cursor-not-allowed disabled:opacity-100 ${isInCart ? "bg-emerald-500/10 text-emerald-600" : "bg-foreground text-background hover:bg-accent hover:text-white"}`}
             >
               {isInCart ? <Check size={17} /> : null}
-              {isInCart ? t.actions.added : stock > 0 ? t.actions.add : t.product.unavailable}
+              {isInCart
+                ? t.actions.added
+                : stock > 0
+                  ? t.actions.add
+                  : t.product.unavailable}
               {!isInCart && <ArrowLeft size={16} />}
             </button>
           </div>

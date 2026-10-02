@@ -69,6 +69,14 @@ export async function createAddress(payload: AddressPayload) {
   return response.data;
 }
 
+export async function updateAddress(id: number, payload: AddressPayload) {
+  const response = await api.patch<{ data: Address; message: string }>(
+    `/account/addresses/${id}`,
+    payload,
+  );
+  return response.data;
+}
+
 export async function deleteAddress(id: number) {
   const response = await api.delete<{ message: string }>(
     `/account/addresses/${id}`,
