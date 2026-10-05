@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'image_uploaded' => 'Image uploaded successfully.',
+    'forbidden' => 'You do not have access to the admin panel.',
+    'role_inactive' => 'This role is inactive.',
+    'role_assigned' => 'Role assigned successfully.',
+    'role_revoked' => 'Role revoked successfully.',
+    'product_created' => 'Product created successfully.',
+    'product_updated' => 'Product updated successfully.',
+    'product_deleted' => 'Product deleted.',
+    'products_imported' => ':count products imported successfully.',
+    'reviews_bulk_updated' => ':count reviews updated successfully.',
+    'order_updated' => 'Order status updated.',
+    'campaign_created' => 'Campaign created successfully.',
+    'campaign_updated' => 'Campaign updated successfully.',
+    'campaign_deleted' => 'Campaign deleted.',
+    'discount_created' => 'Discount code created successfully.',
+    'discount_updated' => 'Discount code updated successfully.',
+    'discount_deleted' => 'Discount code deleted.',
+    'banner_created' => 'Banner created successfully.',
+    'banner_updated' => 'Banner updated successfully.',
+    'banner_deleted' => 'Banner deleted.',
+    'review_updated' => 'Review status updated.',
+    'review_deleted' => 'Review deleted.',
+];

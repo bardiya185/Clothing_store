@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'image_uploaded' => 'تصویر با موفقیت بارگذاری شد.',
+    'forbidden' => 'دسترسی به پنل مدیریت مجاز نیست.',
+    'role_inactive' => 'این نقش غیرفعال است.',
+    'role_assigned' => 'نقش با موفقیت اختصاص یافت.',
+    'role_revoked' => 'نقش با موفقیت لغو شد.',
+    'product_created' => 'محصول با موفقیت ایجاد شد.',
+    'product_updated' => 'محصول با موفقیت به‌روزرسانی شد.',
+    'product_deleted' => 'محصول حذف شد.',
+    'products_imported' => ':count محصول با موفقیت وارد شد.',
+    'reviews_bulk_updated' => ':count نظر با موفقیت به‌روزرسانی شد.',
+    'order_updated' => 'وضعیت سفارش به‌روزرسانی شد.',
+    'campaign_created' => 'کمپین با موفقیت ایجاد شد.',
+    'campaign_updated' => 'کمپین با موفقیت به‌روزرسانی شد.',
+    'campaign_deleted' => 'کمپین حذف شد.',
+    'discount_created' => 'کد تخفیف با موفقیت ایجاد شد.',
+    'discount_updated' => 'کد تخفیف با موفقیت به‌روزرسانی شد.',
+    'discount_deleted' => 'کد تخفیف حذف شد.',
+    'banner_created' => 'بنر با موفقیت ایجاد شد.',
+    'banner_updated' => 'بنر با موفقیت به‌روزرسانی شد.',
+    'banner_deleted' => 'بنر حذف شد.',
+    'review_updated' => 'وضعیت نظر به‌روزرسانی شد.',
+    'review_deleted' => 'نظر حذف شد.',
+];
